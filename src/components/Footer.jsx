@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 function Footer() {
   return (
     <>
-    <div style={{width:'100%',height:'400px'}} className=' mt-5 bg-danger d-flex flex-column justify-content-center align-items-center text-white   '>
+    <div style={{width:'100%',height:'400px'}} className='  bg-danger d-flex flex-column justify-content-center align-items-center text-white   '>
         <div className=" border-0 footer-div d-flex justify-content-evenly  w-100 flex-wrap border border-white  ">
           <div className="website" style={{width:'400px'}}>
             <h4 style={{color:'black'}}>{' '}
@@ -16,8 +16,8 @@ function Footer() {
           <div className="links d-flex flex-column">
             <h4 style={{color:'black'}}>Links</h4>
             <Link to={'/'} style={{textDecoration:'none'}}>Home</Link>
-            <Link to={'/Cart'} style={{textDecoration:'none'}}>Cart</Link>
-            <Link to={'/WishLists'} style={{textDecoration:'none'}}>WishList</Link>
+            <Link to={'/login'} style={{textDecoration:'none'}}>Login</Link>
+            <Link to={'/register'} style={{textDecoration:'none'}}>Register</Link>
           </div>
           <div className="guides d-flex flex-column">
           <h4 style={{color:'black'}}>Guides</h4>
