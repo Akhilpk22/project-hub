@@ -22,10 +22,10 @@ function Home() {
               user can add and manage their projects As well access all projects
               available in our website ... what waiting for !!!!
             </p>
-            <button className="btn btn-warning">
+            <Link to={'/login'} className="btn btn-warning">
               Start to Explore
               <i class="fa-solid fa-right-long fa-beat ms-2"></i>
-            </button>
+            </Link>
           </Col>
           <Col sm={12} md={6}>
             <img
@@ -44,13 +44,10 @@ function Home() {
           All projects
         </h1>
         <marquee scrollAmount={25}>
-          <Row className="mb-5">
-            <Col sm={12} md={6} lg={4}>
+          <Row className="mb-5  ">
+            <Col clas sm={12} md={6} lg={4}>
               <ProjectCard />
-            </Col>
-            <Col sm={12} md={6} lg={4}>
-              <ProjectCard />
-            </Col>
+            </Col>           
           </Row>
         </marquee>
         <div className="text-center mb-5">

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button, Card, Col, Modal, Row } from "react-bootstrap";
-import projectcardpic from "../images/project-team.png";
+import {  Card, Col, Modal, Row } from "react-bootstrap";
+import projectcardpic from "../images/project-photo.png";
 
 function ProjectCard() {
   const [show, setShow] = useState(false);

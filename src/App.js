@@ -2,11 +2,11 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
+
 import Projects from './pages/Projects';
 import DashBoard from './pages/DashBoard';
 import Footer from './components/Footer';
+import Auth from './components/Auth';
 
 function App() {
   return (
@@ -14,8 +14,8 @@ function App() {
       
       <Routes>
         <Route path='/' element={<Home/>} />
-        <Route path='/login' element={<Login/>} />
-        <Route path='/register' element={<Register/>} />
+        <Route path='/login' element={<Auth/>} />
+        <Route path='/register' element={<Auth register />} />
         <Route path='/project' element={<Projects/>} />
         <Route path='/Dashboard' element={<DashBoard/>} />
       </Routes>
