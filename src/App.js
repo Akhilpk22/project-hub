@@ -2,7 +2,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
-
 import Projects from './pages/Projects';
 import DashBoard from './pages/DashBoard';
 import Footer from './components/Footer';
@@ -15,9 +14,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/login' element={<Auth/>} />
-        <Route path='/register' element={<Auth register />} />
+        <Route path='/register' element={<Auth register />}/>
         <Route path='/project' element={<Projects/>} />
-        <Route path='/Dashboard' element={<DashBoard/>} />
+        <Route path='/dashbord' element={<DashBoard/>}/>
       </Routes>
       <Footer/>
 
