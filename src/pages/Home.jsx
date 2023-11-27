@@ -3,16 +3,33 @@ import { Col, Row } from "react-bootstrap";
 import projectphoto from "../images/project-team.png";
 import ProjectCard from "../components/ProjectCard";
 import { Link } from "react-router-dom";
+import { homeProjectAPI } from "../Services/allAPI";
 
 function Home() {
   const [loggedin,setLoggedin] = useState(false)
+  const [homeprojects,sethomeprojects] =useState([])
+
+  const getHomeProjects = async()=>{
+    const result= await homeProjectAPI()
+    if(result.status===200){
+      sethomeprojects(result.data)
+    }else{
+      console.log(result);
+      console.log(result.response.data);
+
+    }
+  }
+  // console.log(homeprojects);
+
   useEffect(()=>{
     if(sessionStorage.getItem("token")){
       setLoggedin(true)
     }else{
       setLoggedin(false)
     }
-  })
+    // api call function
+    getHomeProjects()
+  },[])
   return (
     <>
       {/* landing -section  */}
@@ -60,10 +77,14 @@ function Home() {
           All projects
         </h1>
         <marquee scrollAmount={25}>
-          <Row className="mb-5  ">
-            <Col clas sm={12} md={6} lg={4}>
-              <ProjectCard />
-            </Col>           
+        <Row>
+            {homeprojects?.length > 0
+              ? homeprojects.map((project) => (
+                  <Col sm={12} md={4}>
+                    <ProjectCard project={project} />
+                  </Col>
+                ))
+              : null}
           </Row>
         </marquee>
         <div className="text-center mb-5">

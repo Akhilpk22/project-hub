@@ -1,11 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { addprojectsAPI } from "../Services/allAPI";
+import { addProjectResponseContext } from "../contexts/ContextsShares";
 
 function AddProjects() {
+
+const{addProjectResponse,setaddProjectResponse}= useContext(addProjectResponseContext)
+
   //   modal
   const [show, setShow] = useState(false);
 
@@ -80,14 +84,18 @@ function AddProjects() {
       reqBody.append("website", website);
 
       if (token) {
-        reqHeader = {
+         const reqHeader = {
           "Content-Type": "multipart/form-data",
           "Authorization": `Bearer ${token}`,
         };
-        const result = await addprojectsAPI(reqBody, reqHeader);
+        const result = await addprojectsAPI(reqBody,reqHeader);
 
         if (result.status === 200) {
           console.log(result.data);
+          handleClose()
+          alert("project add")
+          setaddProjectResponse(result.data)
+
         } else {
           console.log(result);
           console.log(result.response.data);
