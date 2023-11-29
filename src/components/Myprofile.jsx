@@ -1,49 +1,107 @@
-import React from "react";
-import { Form } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Collapse from "react-bootstrap/Collapse";
+import { BASE_URL } from "../Services/baseUrl";
+
+
+
+
 
 function Myprofile() {
+  const [open, setOpen] = useState(false);
+
+  const [userProfile,setuserProfile] = useState({
+    username:"",email:"",password:"",github:"",linkedin:"",profile:"" 
+   })
+  const [existingImage,setexistingImage]= useState("")
+  const [preview, setPreview] = useState("");
+
+   useEffect(()=>{
+    const user = JSON.parse(sessionStorage.getItem("existingUser"))
+    if(user.profile){
+      
+      setuserProfile({...userProfile,username:user.username,email:user.email,password:user.password,profile:"",github:user.github,linkedin:user.linkedin})
+      setexistingImage(user.profile)
+    }
+    else{
+      setexistingImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLRGEiiYRifQBKnnACuR1EVSKFHznpUKQLiHYuo_a-Ew&s")
+    }
+   },[])
+
+   useEffect(()=>{
+    if(userProfile.profile){
+      setPreview(URL.createObjectURL(userProfile.profile))
+    }else{
+      setPreview("")
+    }
+
+   },[userProfile.profile])
+  
+
+  
   return (
     <>
-      <div className="card mb-3">
-        <div className=" d-flex justify-content-around  align-items-center ">
-          <div>
-            <h1>My Profile</h1>
-          </div>
-          <div></div>
-        </div>
-        <div className="d-flex justify-content-center align-items-center  mt-3">
-          <img
-            className="img-fluid"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmuG-1sL9aUGxNGXIL0xLZQ39gV3gCnw7iUg&usqp=CAU"
-            alt=""
-          />
-          
-        </div>
-        <div>
-          <form>
-            <div class="mb-3 d-flex  justify-content-center align-items-center mt-5">
+     <div className="card shadow p-5">
+      <div className="d-flex justify-content-between">
+        <h4>MyProfile</h4>
+        <Button
+          className="btn btn-outline-dark"
+          onClick={() => setOpen(!open)}
+          aria-controls="example-collapse-text"
+          aria-expanded={open}
+        >
+          <i class="fa-solid fa-chevron-down"></i>
+        </Button>
+      </div>
+
+      <Collapse in={open}>
+        <div id="example-collapse-text">
+          <div className="row justify-content-center mt-3">
+            <label className="text-center">
               <input
-                type="email"
-                class="form-control w-75 "
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                placeholder="GitHub"
+                style={{ display: "none" }}
+                type="file"
+                onChange={e=>setuserProfile({...userProfile,profile:e.target.files[0]})}
+                />
+          
+                <img
+                  height={"200px"}
+                  width={"200px"}
+                  className="rounded-circle border"
+                  src={preview?preview:`${BASE_URL}/uploads/${existingImage}`}
+                  alt="Uploading picture"/>
+
+            </label>
+
+            <div className="mt-3">
+              <input
+                
+                placeholder="Github"
+                className="form-control"
+                type="text"
+                value={userProfile.github}
+                onChange={e=>setuserProfile({...userProfile,github:e.target.value})}
               />
             </div>
-            <div class="mb-3 d-flex  justify-content-center align-items-center mt-2">
+            <div className="mt-3">
               <input
-                type="email"
-                class="form-control w-75 "
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
+                
+                value={userProfile.linkedin}
+                onChange={e=>setuserProfile({...userProfile,linkedin:e.target.value})}
                 placeholder="Linkedin"
+                className="form-control"
+                type="text"
               />
             </div>
 
-            <div className="d-flex  justify-content-center align-items-center mb-3"><button className="btn w-75  border bg-success  ">Update</button></div>
-          </form>
+            <div className="mt-3 btn">
+              <Button  className="btn w-100">Update</Button>
+            </div>
+          </div>
         </div>
-      </div>
+      </Collapse>
+    </div>
     </>
   );
 }

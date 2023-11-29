@@ -23,7 +23,7 @@ function MyProject() {
       const token = sessionStorage.getItem("token");
       const reHeader = {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       };
       const result = await userprojectAPI(reHeader);
       if (result.status === 200) {

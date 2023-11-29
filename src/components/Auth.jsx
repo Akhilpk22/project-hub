@@ -5,8 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { loginAPI, registerAPI } from "../Services/allAPI";
+import { useContext } from "react";
+import { tokenAuthorisationContext } from "../contexts/TokenAuth";
 
 function Auth({ register }) {
+
+  const {isAuthorized, setisAuthorized} = useContext(tokenAuthorisationContext)
+
   const navigate =useNavigate()
 
   const [userData,setUserData] =useState({
@@ -49,6 +54,7 @@ function Auth({ register }) {
         sessionStorage.setItem("existingUser",JSON.stringify(result.data.existingUser))
         sessionStorage.setItem("token",result.data.token)
         // toast.success(`${result.data.username}  has register successfully!!`)
+        setisAuthorized(true)
         setUserData({
           username:"",email:"",password:""
         })

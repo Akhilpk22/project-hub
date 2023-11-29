@@ -1,7 +1,19 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { tokenAuthorisationContext } from '../contexts/TokenAuth'
 
 function Hader({insideDashbord}) {
+  const {isAuthorized, setisAuthorized} = useContext(tokenAuthorisationContext)
+
+  const navigate= useNavigate()
+  const handleLogout =()=>{
+   sessionStorage.removeItem("existingUser")
+   sessionStorage.removeItem("token")
+   setisAuthorized(false)
+   navigate("/")
+
+  }
+
   return (
     <>
      <div className='d-flex justify-content-between align-items-center ' style={{backgroundColor: "#90ee90", width: "100%", height: "13vh",}}>
@@ -11,7 +23,7 @@ function Hader({insideDashbord}) {
         {/* inside the  */}
          { insideDashbord &&
           <div className='me-5 d-flex'>
-          <button className='btn bg-body-tertiary border-1  shadow-lg '>
+          <button onClick={handleLogout} className='btn bg-body-tertiary border-1  shadow-lg '>
             logout
           </button>
          </div>
